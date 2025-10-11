@@ -99,14 +99,14 @@ const Patterns: {
     hr: { media: ["<medijski zapis izostavljen>", "<Medijski zapis izostavljen>"] },
     hu: { media: ["<média elhagyva>", "<Hiányzó médiafájl>"] },
     in: { media: ["<media tidak disertakan>"] },
-    it: { 
+    it: {
         media: ["<media omessi>", "<Media omesso>"],
         image: ["<immagine omessa>", "immagine omessa"],
         video: ["<video omesso>", "video omesso"],
         document: ["<documento omesso>", "documento omesso"],
         audio: ["<audio omesso>", "audio omesso"],
         GIF: ["<GIF esclusa>", "GIF esclusa"],
-        sticker: ["<sticker non incluso>", "sticker non incluso"],        
+        sticker: ["<sticker non incluso>", "sticker non incluso"],
     },
     iw: { media: ["<המדיה לא נכללה>", "<מדיה הושמטה>"] },
     ja: { media: ["<メディアなし>", "<メディアは含まれていません>"] },
