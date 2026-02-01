@@ -22,7 +22,7 @@ beforeAll(async () => {
     allMessages = [];
     let channelIndex = 0;
     for (const channel of db.channels) {
-        const stream = new BitStream(db.messages.buffer);
+        const stream = new BitStream(db.messages.buffer as ArrayBuffer);
         if (channel.msgAddr !== undefined) {
             stream.offset = channel.msgAddr;
             const arr = new MessagesArray(db.bitConfig, stream, channel.msgCount);

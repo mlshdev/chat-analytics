@@ -16,7 +16,7 @@ export const filterMessages = (
     filters: Filters,
     activeFilters = { channels: true, authors: true, time: true }
 ) => {
-    const stream = new BitStream(database.messages!.buffer);
+    const stream = new BitStream(database.messages!.buffer as ArrayBuffer);
     for (let channelIndex = 0; channelIndex < database.channels.length; channelIndex++) {
         // filter channel
         if (activeFilters.channels && !filters.hasChannel(channelIndex)) continue;

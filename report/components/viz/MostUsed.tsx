@@ -1,4 +1,4 @@
-import { memo, useMemo, useState } from "react";
+import React, { memo, useMemo, useState } from "react";
 
 import { Index } from "@pipeline/Types";
 import { matchFormat } from "@pipeline/process/nlp/Text";
@@ -10,7 +10,7 @@ interface BaseProps {
     unit: string;
     counts?: number[];
     filter?: (index: number) => boolean;
-    itemComponent: (props: { index: Index }) => JSX.Element;
+    itemComponent: (props: { index: Index }) => React.JSX.Element;
     maxItems: number;
     colorHue?: number;
 

@@ -1,4 +1,4 @@
-import { Fragment, ReactNode, useEffect, useMemo, useState } from "react";
+import React, { Fragment, ReactNode, useEffect, useMemo, useState } from "react";
 
 import { PlatformsInfo } from "@pipeline/Platforms";
 import { getDatabase, getWorker } from "@report/WorkerWrapper";
@@ -46,7 +46,7 @@ const CardContainer = (props: { children: ReactNode }) => <div className="CardCo
 export interface Section {
     name: string;
     value: string;
-    cards: JSX.Element[];
+    cards: React.JSX.Element[];
 }
 
 const ReportDashboard = () => {

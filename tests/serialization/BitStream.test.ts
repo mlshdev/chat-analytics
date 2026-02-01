@@ -223,6 +223,7 @@ test("buffer8 returns a buffer aligned to 32bits", () => {
 });
 
 it("should crash if created with an invalid buffer", () => {
+    // @ts-expect-error intentionally passing invalid type to test runtime check
     expect(() => new BitStream(new Uint8Array())).toThrow("buffer must not be a view");
     expect(() => new BitStream(new ArrayBuffer(7))).toThrow("buffer must be aligned to 32bits"); // must be a multiple of 4 bytes
 });

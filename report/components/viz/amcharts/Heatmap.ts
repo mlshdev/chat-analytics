@@ -57,6 +57,8 @@ export const createHeatmap = (
             orientation: "horizontal",
             startColor,
             endColor,
+            startOpacity: 1,
+            endOpacity: 1,
         })
     );
 

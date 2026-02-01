@@ -65,7 +65,7 @@ export const checkDatabaseIsGeneratedCorrectly = async (platform: Platform, file
         const channel = db.channels[channelIndex];
         expect(channel.guildIndex).toBe(guildIndex);
 
-        const stream = new BitStream(db.messages.buffer);
+        const stream = new BitStream(db.messages.buffer as ArrayBuffer);
         stream.offset = channel.msgAddr || 0;
         const messagesArr = new MessagesArray(db.bitConfig, stream, channel.msgCount);
         const messages = Array.from(messagesArr);

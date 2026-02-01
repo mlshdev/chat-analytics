@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import CountUp from "react-countup";
 
 import "@assets/styles/AnimatedBars.less";
@@ -9,7 +9,7 @@ const HEADER_HEIGHT = 27; // hmmm
 const defaultFormatting = (n: number) => n.toLocaleString();
 
 type Index = number;
-type ItemComponent = (props: { index: Index; pin: boolean }) => JSX.Element;
+type ItemComponent = (props: { index: Index; pin: boolean }) => React.JSX.Element;
 
 export interface AnimatedBarEntry {
     index: Index;

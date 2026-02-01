@@ -1,11 +1,11 @@
-FROM node:alpine AS builder
+FROM oven/bun:latest AS builder
 
 WORKDIR /chat-analytics
 
 COPY package.json .
-COPY package-lock.json .
+COPY bun.lock .
 
-RUN npm ci
+RUN bun install
 
 COPY app app
 COPY assets assets
@@ -16,7 +16,7 @@ COPY tsconfig.web.json .
 COPY webpack.config.js .
 
 ENV SELF_HOSTED=1
-RUN npm run build:web
+RUN bun run build:web
 
 FROM nginx:alpine
 
