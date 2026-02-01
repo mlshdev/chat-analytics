@@ -106,14 +106,18 @@ export class WhatsAppParser extends Parser {
 
         // by default is included as "_chat.txt" inside the ZIP
         if (files.includes("_chat.txt")) {
-            return unzippedFiles["_chat.txt"];
+            const data = unzippedFiles["_chat.txt"];
+            return data.buffer.slice(data.byteOffset, data.byteOffset + data.byteLength) as ArrayBuffer;
         } else {
             // otherwise we try to find a file that matches the pattern
             // (defensive, just in case)
             const chatTxtFiles = files
                 .filter((f) => f.match(/.*(?:chat|whatsapp).*\.txt$/i))
                 .sort((a, b) => a.length - b.length);
-            if (chatTxtFiles.length > 0) return unzippedFiles[chatTxtFiles[0]];
+            if (chatTxtFiles.length > 0) {
+                const data = unzippedFiles[chatTxtFiles[0]];
+                return data.buffer.slice(data.byteOffset, data.byteOffset + data.byteLength) as ArrayBuffer;
+            }
         }
 
         throw new Error("Could not find txt file in zip");

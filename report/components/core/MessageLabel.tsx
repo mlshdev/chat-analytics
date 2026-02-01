@@ -1,3 +1,5 @@
+import React from "react";
+
 import { AttachmentType } from "@pipeline/Attachments";
 import { Day, formatTime } from "@pipeline/Time";
 import { MessageComplete } from "@pipeline/process/Types";
@@ -96,7 +98,7 @@ export const MessageLabel = (props: { message?: MessageComplete }) => {
 const Chip = (props: { chip: ChipProps }) => {
     const { type, index, count } = props.chip;
 
-    let content: JSX.Element | null = null;
+    let content: React.JSX.Element | null = null;
 
     switch (type) {
         case "attachment":

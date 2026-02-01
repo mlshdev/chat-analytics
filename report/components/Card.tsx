@@ -1,4 +1,4 @@
-import { ReactElement, useState } from "react";
+import React, { ReactElement, useState } from "react";
 
 import { BlockState } from "@report/BlockStore";
 import ErrorBoundary from "@report/components/ErrorBoundary";
@@ -15,7 +15,7 @@ interface Props {
     title: Title;
     tooltip?: ReactElement | string;
     defaultOptions?: number[];
-    children: (props: { options: number[] }) => JSX.Element;
+    children: (props: { options: number[] }) => React.JSX.Element;
 }
 
 const Card = (props: Props) => {
@@ -30,7 +30,7 @@ const Card = (props: Props) => {
             props.defaultOptions || title.filter((a) => typeof a !== "string").map((_) => 0)
         );
 
-        const elements: JSX.Element[] = [];
+        const elements: React.JSX.Element[] = [];
 
         let optionIndex = 0;
         for (const entry of title) {

@@ -12,7 +12,7 @@ beforeEach(() => {
 it("should emit after new()", () => {
     progress.new("title", "subject");
 
-    expect(fn).toBeCalledWith([{ status: "processing", subject: "subject", title: "title" }], {});
+    expect(fn).toHaveBeenCalledWith([{ status: "processing", subject: "subject", title: "title" }], {});
 });
 
 it("should emit progress after progress()", () => {
@@ -32,36 +32,36 @@ it("should emit progress after progress()", () => {
         },
     });
 
-    expect(fn).toBeCalledWith([taskWithProgress(3)], {});
+    expect(fn).toHaveBeenCalledWith([taskWithProgress(3)], {});
     progress.progress("number", 7, 10);
-    expect(fn).toBeCalledWith([taskWithProgress(7)], {});
+    expect(fn).toHaveBeenCalledWith([taskWithProgress(7)], {});
     progress.progress("number", 10, 10);
-    expect(fn).toBeCalledWith([taskWithProgress(10)], {});
+    expect(fn).toHaveBeenCalledWith([taskWithProgress(10)], {});
 });
 
 it("should emit after success()", () => {
     progress.new("title", "subject");
     progress.success();
 
-    expect(fn).toBeCalledWith([{ status: "success", subject: "subject", title: "title" }], {});
+    expect(fn).toHaveBeenCalledWith([{ status: "success", subject: "subject", title: "title" }], {});
 });
 
 it("should emit after error()", () => {
     progress.new("title", "subject");
     progress.error("poop");
 
-    expect(fn).toBeCalledWith([{ status: "error", subject: "subject", title: "title", error: "poop" }], {});
+    expect(fn).toHaveBeenCalledWith([{ status: "error", subject: "subject", title: "title", error: "poop" }], {});
 });
 
 it("stats should be updated", () => {
     progress.stat("a", 5);
-    expect(fn).toBeCalledWith([], { a: 5 });
+    expect(fn).toHaveBeenCalledWith([], { a: 5 });
     progress.stat("b", 10);
-    expect(fn).toBeCalledWith([], { a: 5, b: 10 });
+    expect(fn).toHaveBeenCalledWith([], { a: 5, b: 10 });
     progress.stat("a", 15);
-    expect(fn).toBeCalledWith([], { a: 15, b: 10 });
+    expect(fn).toHaveBeenCalledWith([], { a: 15, b: 10 });
     progress.stat("a", 20);
-    expect(fn).toBeCalledWith([], { a: 20, b: 10 });
+    expect(fn).toHaveBeenCalledWith([], { a: 20, b: 10 });
 });
 
 it("should top up progress after success", () => {
@@ -69,7 +69,7 @@ it("should top up progress after success", () => {
     progress.progress("number", 3, 10);
     progress.success();
 
-    expect(fn).toBeCalledWith(
+    expect(fn).toHaveBeenCalledWith(
         [
             {
                 status: "success",

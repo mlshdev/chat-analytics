@@ -23,7 +23,7 @@ export const loadFile = (filepath: string): FileInput => {
                 position: start,
             });
 
-            return buffer;
+            return buffer.buffer.slice(buffer.byteOffset, buffer.byteOffset + buffer.byteLength);
         },
     };
 };

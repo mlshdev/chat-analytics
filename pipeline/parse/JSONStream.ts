@@ -151,6 +151,18 @@ export class JSONStream {
                         this.primitive &&
                         isPrimitiveTerminator(c)
                     ) {
+                        // Check if this is an empty array case
+                        // This happens when we have "[]" or "[ ]" - immediately after "[" we see "]"
+                        // In this case, the slice from valueStart to current position (i) should be empty or whitespace only
+                        const valueSlice = this.buffer.slice(this.valueStart, i).trim();
+                        if (c === Char.closeBracket && this.next === State.END_VALUE_ARRAY && valueSlice.length === 0) {
+                            // Empty array - skip to END_ARRAY without parsing any value
+                            this.state = State.END_ARRAY;
+                            this.next = State.INVALID;
+                            // don't consume the ], let END_ARRAY handle it
+                            continue; // (don't i++)
+                        }
+
                         // console.log("key", this.key, "value", this.value);
                         this.state = this.next;
                         this.next = State.INVALID;

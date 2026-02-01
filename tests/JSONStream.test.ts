@@ -107,3 +107,55 @@ it("crash when using onArray on something other than an array", async () => {
     stream.onArrayItem<any>("fakeArr", () => {});
     expect(() => stream.push(`{ "fakeArr": { "a": 5 } }`)).toThrow();
 });
+
+it("handle empty arrays correctly", async () => {
+    const stream = new JSONStream();
+    const items: number[] = [];
+
+    stream.onArrayItem<number>("messages", (item) => items.push(item));
+    stream.push(`{ "messages": [] }`);
+
+    expect(items).toEqual([]);
+});
+
+it("handle empty arrays with other properties", async () => {
+    const stream = new JSONStream();
+    const items: number[] = [];
+    let guildReceived = false;
+
+    stream.onArrayItem<number>("messages", (item) => items.push(item));
+    stream.onObject<object>("guild", () => {
+        guildReceived = true;
+    });
+
+    stream.push(`{ "guild": { "id": 1 }, "messages": [], "other": "value" }`);
+
+    expect(guildReceived).toBe(true);
+    expect(items).toEqual([]);
+});
+
+it("handle empty arrays with whitespace", async () => {
+    const stream = new JSONStream();
+    const items: number[] = [];
+
+    stream.onArrayItem<number>("messages", (item) => items.push(item));
+    stream.push(`{ "messages": [   ] }`);
+
+    expect(items).toEqual([]);
+});
+
+it("handle arrays after empty arrays", async () => {
+    const stream = new JSONStream();
+    const items: number[] = [];
+    let otherReceived = false;
+
+    stream.onArrayItem<number>("empty", (item) => items.push(item));
+    stream.onObject<string>("other", () => {
+        otherReceived = true;
+    });
+
+    stream.push(`{ "empty": [], "other": "value" }`);
+
+    expect(items).toEqual([]);
+    expect(otherReceived).toBe(true);
+});

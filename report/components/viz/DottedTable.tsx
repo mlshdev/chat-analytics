@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import React, { ReactElement } from "react";
 import CountUp from "react-countup";
 
 import { Tooltip } from "@report/components/core/Tooltip";
@@ -87,7 +87,7 @@ const LineItem = ({ line }: { line: Line }) => {
 
     const depth = line.depth || 0;
 
-    let value: JSX.Element;
+    let value: React.JSX.Element;
     switch (line.type) {
         case "text":
             value = <>{line.value}</>;

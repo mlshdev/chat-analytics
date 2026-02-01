@@ -1,4 +1,6 @@
-export const TabContainer = (props: { currentValue: string; value: string; children: JSX.Element }) => (
+import React from "react";
+
+export const TabContainer = (props: { currentValue: string; value: string; children: React.JSX.Element }) => (
     <div
         style={{
             display: props.currentValue === props.value ? "block" : "none",

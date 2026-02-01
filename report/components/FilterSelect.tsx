@@ -20,7 +20,7 @@ const OPTION_HEIGHT = 35;
 const CHIPS_LIMIT = 3;
 
 type Index = number;
-type ItemComponent = (props: { index: Index }) => JSX.Element;
+type ItemComponent = (props: { index: Index }) => React.JSX.Element;
 type FocusDirection = "up" | "down" | "pageup" | "pagedown" | "first" | "last";
 
 export interface FilterOption {
@@ -153,9 +153,9 @@ export default class FilterSelect extends PureComponent<Props, State> {
         selectedOffset: -1,
     };
 
-    private readonly menuRef: React.RefObject<HTMLDivElement>;
-    private readonly menuListRef: React.RefObject<FixedSizeList>;
-    private readonly inputRef: React.RefObject<HTMLInputElement>;
+    private readonly menuRef: React.RefObject<HTMLDivElement | null>;
+    private readonly menuListRef: React.RefObject<FixedSizeList | null>;
+    private readonly inputRef: React.RefObject<HTMLInputElement | null>;
 
     private activeOptions: Index[] = [];
     private activeFilterOptions: FilterOption[] = [];

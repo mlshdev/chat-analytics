@@ -5,6 +5,7 @@ coverage/
 report_sample*.data
 stats.json
 report.html
+package-lock.json
 
 # pack build
 chat-analytics-*.tgz

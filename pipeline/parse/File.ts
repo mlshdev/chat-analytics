@@ -18,7 +18,7 @@ export const wrapStringAsFile = (content: string): FileInput => {
         name: "file" + content.length,
         size: content.length,
         lastModified: Date.now(),
-        slice: async (start: number, end: number) => buffer.slice(start, end),
+        slice: async (start: number, end: number) => buffer.slice(start, end).buffer as ArrayBuffer,
     };
 };
 

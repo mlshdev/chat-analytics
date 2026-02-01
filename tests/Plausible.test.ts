@@ -11,7 +11,7 @@ const testPageview = ({ location, expectedPath }: { location: string; expectedPa
     // @ts-ignore
     delete window.location;
     // @ts-ignore
-    global.location = new URL(location);
+    window.location = new URL(location);
 
     plausible("pageview");
 
