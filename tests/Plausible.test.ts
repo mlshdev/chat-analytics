@@ -6,17 +6,52 @@ import { plausible } from "@assets/Plausible";
 const testPageview = ({ location, expectedPath }: { location: string; expectedPath: string }) => {
     const fetchMock = (global.fetch = jest.fn(() => Promise.resolve()) as jest.Mock);
 
-    // The URL object has a lot of the same functionality as the Location object
-    // we can use it to test
+    // Parse the location to create a mock location object
+    // Handle blob: URLs specially since they don't parse the same way
+    let mockLocation: Partial<Location>;
+    if (location.startsWith("blob:")) {
+        const innerUrl = new URL(location.replace("blob:", ""));
+        mockLocation = {
+            hostname: innerUrl.hostname,
+            pathname: innerUrl.pathname,
+            search: innerUrl.search,
+            href: location,
+        };
+    } else if (location.startsWith("file:")) {
+        mockLocation = {
+            hostname: "",
+            pathname: new URL(location).pathname,
+            search: "",
+            href: location,
+        };
+    } else {
+        const url = new URL(location);
+        mockLocation = {
+            hostname: url.hostname,
+            pathname: url.pathname,
+            search: url.search,
+            href: location,
+        };
+    }
+
+    // Use a getter-based approach for better compatibility
+    const locationDescriptor = Object.getOwnPropertyDescriptor(window, "location");
     // @ts-ignore
     delete window.location;
     // @ts-ignore
-    window.location = new URL(location);
+    window.location = mockLocation as Location;
 
-    plausible("pageview");
+    try {
+        plausible("pageview");
 
-    const fetchBody = JSON.parse(fetchMock.mock.calls[0][1].body);
-    expect(fetchBody.url).toBe(`https://chatanalytics.app${expectedPath}`);
+        const fetchBody = JSON.parse(fetchMock.mock.calls[0][1].body);
+        expect(fetchBody.url).toBe(`https://chatanalytics.app${expectedPath}`);
+    } finally {
+        // Restore location using descriptor if available
+        if (locationDescriptor) {
+            Object.defineProperty(window, "location", locationDescriptor);
+        }
+    }
 };
 
 it.each([
